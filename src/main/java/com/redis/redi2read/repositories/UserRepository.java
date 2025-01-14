@@ -1,11 +1,12 @@
 package com.redis.redi2read.repositories;
 
-import com.redis.redi2read.models.Role;
+
+import com.redis.redi2read.models.User;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepository extends CrudRepository<Role, String> {
-    Role findFirstByName(String role);
+public interface UserRepository extends CrudRepository<User, String> {
+    User findFirstByEmail(String email);
 }
