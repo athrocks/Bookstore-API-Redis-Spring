@@ -24,7 +24,12 @@
    ```
    This will launch the backend service, typically on `http://localhost:8080`.
 
-3. **Monitor Redis Commands**:
+3. **Execute below command**
+   ```basg
+   docker exec -it <container-name or id> bash
+   ```
+   
+4. **Monitor Redis Commands**:
    Use the `redis-cli` to monitor Redis activity in real-time:
    ```bash
    redis-cli monitor
