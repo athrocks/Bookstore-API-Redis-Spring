@@ -44,8 +44,7 @@
    - **Body** (raw, JSON format):
      ```json
      {
-       "key": "database:redis:creator",
-       "value": "Salvatore Sanfilippo"
+        "database:redis:creator": "Salvatore Sanfilippo"
      }
      ```
 
