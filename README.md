@@ -1,3 +1,4 @@
+
 ## README: Using Postman for API Testing with Redis and Spring Boot
 
 ### **Prerequisites**
@@ -28,7 +29,7 @@
    ```basg
    docker exec -it <container-name or id> bash
    ```
-
+   
 4. **Monitor Redis Commands**:
    Use the `redis-cli` to monitor Redis activity in real-time:
    ```bash
@@ -42,16 +43,16 @@
 #### **POST Request**
 1. **Purpose**: Store a key-value pair in Redis using the Spring Boot API.
 2. **Request Details**:
-    - **Method**: `POST`
-    - **URL**: `http://localhost:8080/api/redis/strings`
-    - **Headers**:
-        - `Content-Type: application/json`
-    - **Body** (raw, JSON format):
-      ```json
-      {
-         "database:redis:creator": "Salvatore Sanfilippo"
-      }
-      ```
+   - **Method**: `POST`
+   - **URL**: `http://localhost:8080/api/redis/strings`
+   - **Headers**:
+     - `Content-Type: application/json`
+   - **Body** (raw, JSON format):
+     ```json
+     {
+        "database:redis:creator": "Salvatore Sanfilippo"
+     }
+     ```
 
 3. **Expected Response**:
    ```json
@@ -63,9 +64,9 @@
 #### **GET Request**
 1. **Purpose**: Retrieve the value of a key stored in Redis using the Spring Boot API.
 2. **Request Details**:
-    - **Method**: `GET`
-    - **URL**: `http://localhost:8080/api/redis/strings/database:redis:creator`
-    - **Headers**: None
+   - **Method**: `GET`
+   - **URL**: `http://localhost:8080/api/redis/strings/database:redis:creator`
+   - **Headers**: None
 
 3. **Expected Response**:
    ```json
@@ -95,22 +96,22 @@ The `redis-cli monitor` command outputs all Redis operations in real-time. For e
 ### **Error Handling**
 
 1. **Redis Container Issues**:
-    - Ensure the container is running:
-      ```bash
-      docker ps
-      ```
-    - Restart the container if necessary:
-      ```bash
-      docker compose up --build -d
-      ```
+   - Ensure the container is running:
+     ```bash
+     docker ps
+     ```
+   - Restart the container if necessary:
+     ```bash
+     docker compose up --build -d
+     ```
 
 2. **Spring Boot Issues**:
-    - Check the logs for any errors during startup.
-    - Ensure Redis is properly connected and configured in the Spring Boot application.
+   - Check the logs for any errors during startup.
+   - Ensure Redis is properly connected and configured in the Spring Boot application.
 
 3. **Postman Errors**:
-    - `Could not get any response`: Check if the Spring Boot application is running and accessible on `http://localhost:8080`.
-    - `404 Not Found`: Ensure the endpoint path and method are correct.
+   - `Could not get any response`: Check if the Spring Boot application is running and accessible on `http://localhost:8080`.
+   - `404 Not Found`: Ensure the endpoint path and method are correct.
 
 ---
 
