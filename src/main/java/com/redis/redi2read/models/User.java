@@ -3,7 +3,10 @@ package com.redis.redi2read.models;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -20,6 +23,9 @@ import lombok.ToString;
 @JsonIgnoreProperties(value = { "password", "passwordConfirm" }, allowSetters = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Data
 @RedisHash
 public class User {
@@ -46,9 +52,18 @@ public class User {
     private String passwordConfirm;
 
     @Reference
-    private Set<Role> roles = new HashSet<Role>();
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Role> roles = new HashSet<>();
 
     public void addRole(Role role) {
         roles.add(role);
+    }
+
+    @Reference
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Book> books = new HashSet<>();
+
+    public void addBook(Book book) {
+        books.add(book);
     }
 }
