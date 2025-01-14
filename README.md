@@ -36,6 +36,11 @@
    redis-cli monitor
    ```
 
+5. **Open another linux terminal and enter**
+ ```bash
+   redis-cli
+   ```
+
 ---
 
 ### **Postman API Testing**
