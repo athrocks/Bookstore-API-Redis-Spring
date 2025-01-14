@@ -37,7 +37,7 @@
    ```
 
 5. **Open another linux terminal and enter**
- ```bash
+    ```bash
    redis-cli
    ```
 
