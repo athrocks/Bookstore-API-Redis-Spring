@@ -1,9 +1,6 @@
 package com.redis.redi2read.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalLong;
+import java.util.*;
 import java.util.stream.LongStream;
 
 import com.redis.redi2read.models.Book;
@@ -75,13 +72,29 @@ public class CartService {
     }
 
     public void checkout(String id) {
-        Cart cart = cartRepository.findById(id).get();
-        User user = userRepository.findById(cart.getUserId()).get();
+        Optional<Cart> optionalCart = cartRepository.findById(id);
+        if (!optionalCart.isPresent()) {
+            throw new NoSuchElementException("Cart not found with id: " + id);
+        }
+        Cart cart = optionalCart.get();
+
+        Optional<User> optionalUser = userRepository.findById(cart.getUserId());
+        if (!optionalUser.isPresent()) {
+            throw new NoSuchElementException("User not found with ID: " + cart.getUserId());
+        }
+        User user = optionalUser.get();
+
         cart.getCartItems().forEach(cartItem -> {
-            Book book = bookRepository.findById(cartItem.getIsbn()).get();
+            Optional<Book> optionalBook = bookRepository.findById(cartItem.getIsbn());
+            if (!optionalBook.isPresent()) {
+                throw new NoSuchElementException("Book not found with ISBN: " + cartItem.getIsbn());
+            }
+            Book book = optionalBook.get();
             user.addBook(book);
         });
+
         userRepository.save(user);
         // cartRepository.delete(cart);
     }
+
 }

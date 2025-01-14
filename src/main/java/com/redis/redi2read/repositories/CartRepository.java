@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.redis.redi2read.models.Cart;
 import org.springframework.data.repository.CrudRepository;
 import redis.clients.jedis.JedisPooled;
@@ -24,6 +25,26 @@ public class CartRepository implements CrudRepository<Cart, String> {
         this.jedis = new JedisPooled("localhost", 6379); // Configure host and port as needed
     }
 
+//    public <S extends Cart> S save(S cart) {
+//        // Set cart ID if not already present
+//        if (cart.getId() == null) {
+//            cart.setId(UUID.randomUUID().toString());
+//        }
+//
+//        String key = getKey(cart);
+//
+//        // Save cart as JSON in Redis
+//        jedis.jsonSet(key, cart);
+//
+//        // Add to set of cart keys
+//        jedis.sadd(ID_PREFIX, key);
+//
+//        // Maintain index for user ID to cart ID
+//        jedis.hset(USER_ID_INDEX, cart.getUserId().toString(), cart.getId());
+//
+//        return cart;
+//    }
+
     public <S extends Cart> S save(S cart) {
         // Set cart ID if not already present
         if (cart.getId() == null) {
@@ -32,17 +53,28 @@ public class CartRepository implements CrudRepository<Cart, String> {
 
         String key = getKey(cart);
 
-        // Save cart as JSON in Redis
-        jedis.jsonSet(key, cart);
+        // Serialize the cart object into a JSON string
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String cartJson = objectMapper.writeValueAsString(cart);
 
-        // Add to set of cart keys
-        jedis.sadd(ID_PREFIX, key);
+            // Save cart as JSON in Redis
+            jedis.jsonSet(key, cartJson);
 
-        // Maintain index for user ID to cart ID
-        jedis.hset(USER_ID_INDEX, cart.getUserId().toString(), cart.getId());
+            // Add to set of cart keys
+            jedis.sadd(ID_PREFIX, key);
+
+            // Maintain index for user ID to cart ID
+            jedis.hset(USER_ID_INDEX, cart.getUserId().toString(), cart.getId());
+
+        } catch (Exception e) {
+            // Handle serialization exception
+            e.printStackTrace();
+        }
 
         return cart;
     }
+
 
     public <S extends Cart> Iterable<S> saveAll(Iterable<S> carts) {
         return StreamSupport.stream(carts.spliterator(), false)
