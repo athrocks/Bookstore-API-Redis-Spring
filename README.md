@@ -1,5 +1,5 @@
 
-# E-commerce API with Redis Integration
+# BookBreeze API with Redis Integration
 
 This project is a RESTful API designed to interact with Redis for storing and retrieving data, and to manage the cart and user-related functionalities of an e-commerce system. The API follows the OpenAPI 3.0 specifications for documentation and includes endpoints for managing books, cart items, and users, alongside Redis integration for fast key-value data handling.
 
