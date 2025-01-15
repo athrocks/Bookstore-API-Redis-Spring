@@ -1,5 +1,41 @@
 
-## README: Using Postman for API Testing with Redis and Spring Boot
+# E-commerce API with Redis Integration
+
+This project is a RESTful API designed to interact with Redis for storing and retrieving data, and to manage the cart and user-related functionalities of an e-commerce system. The API follows the OpenAPI 3.0 specifications for documentation and includes endpoints for managing books, cart items, and users, alongside Redis integration for fast key-value data handling.
+
+## Key Features
+
+- **Redis Integration**: Store and retrieve key-value pairs using Redis.
+- **Book Management**: APIs for searching, viewing, and managing books in the store.
+- **Shopping Cart Management**: Add, remove, and view items in a user's shopping cart, along with a checkout process.
+- **User Management**: Fetch user details based on email or other search criteria.
+
+## API Documentation
+
+### Redis API
+
+- **POST** `/api/redis/strings`: Set a key-value pair in Redis.
+- **GET** `/api/redis/strings/{key}`: Retrieve a value by key from Redis.
+
+### Cart API
+
+- **GET** `/api/carts/{id}`: Retrieve cart details for a specific user.
+- **POST** `/api/carts/{id}`: Add an item to the user's cart.
+- **DELETE** `/api/carts/{id}`: Remove an item from the cart.
+- **POST** `/api/carts/{id}/checkout`: Checkout and complete the purchase for a user's cart.
+
+### Book API
+
+- **GET** `/api/books`: Retrieve all books in the system.
+- **GET** `/api/books/{isbn}`: Get details for a specific book by its ISBN.
+- **GET** `/api/books/search`: Search for books based on query parameters.
+- **GET** `/api/books/categories`: Retrieve categories of books.
+- **GET** `/api/books/authors`: Fetch authors for autocomplete suggestions.
+
+### User API
+
+- **GET** `/api/users`: Retrieve a list of users based on an optional email query.
+
 
 ### **Prerequisites**
 1. **Postman**: Installed on your machine.
