@@ -1,4 +1,4 @@
-package com.redis.redi2read;
+package com.redis.redi2read.cofig;
 
 import com.redislabs.lettusearch.RediSearchClient;
 import com.redislabs.lettusearch.StatefulRediSearchConnection;
